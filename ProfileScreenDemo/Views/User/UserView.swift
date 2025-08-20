@@ -118,9 +118,6 @@ struct SwipeCardView: View {
                 // Background image
                 AsyncImage(url: URL(string: profile.avatar ?? "")) { phase in
                     switch phase {
-                    case .empty:
-                        ProgressView() // loader while downloading
-                            .frame(width: 50, height: 50)
                     case .success(let image):
                         image
                             .resizable()
@@ -130,7 +127,7 @@ struct SwipeCardView: View {
                             .cornerRadius(20)
                             .shadow(radius: 3)
                             .overlay(labelsOverlay)
-                    case .failure:
+                    case .empty, .failure:
                         Image("profile1")
                             .resizable()
                             .scaledToFill()
